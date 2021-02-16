@@ -43,28 +43,34 @@ class Sentence():
 
 
 class Symbol(Sentence):
-
+    # constructor
     def __init__(self, name):
         self.name = name
-
+    
+    # check equality
     def __eq__(self, other):
         return isinstance(other, Symbol) and self.name == other.name
-
+    
+    # The hash() method returns the hash value of an object if it has one.
     def __hash__(self):
         return hash(("symbol", self.name))
-
+    
+    # The repr() function returns a printable representation of the given object.
     def __repr__(self):
         return self.name
-
+    
+    # checks model for the current symbols bool value
     def evaluate(self, model):
         try:
             return bool(model[self.name])
         except KeyError:
             raise Exception(f"variable {self.name} not in model")
-
+            
+    # prints string rep of symbol 'rain'   
     def formula(self):
         return self.name
-
+    
+    # returns set of current symbol { 'rain' }
     def symbols(self):
         return {self.name}
 
@@ -229,13 +235,14 @@ def model_check(knowledge, query):
     """Checks if knowledge base entails query."""
 
     def check_all(knowledge, query, symbols, model):
+        # print("0 model", model, query)
         """Checks if knowledge base entails query, given a particular model."""
 
         # If model has an assignment for each symbol
         if not symbols:
-
             # If knowledge base is true in model, then query must also be true
             if knowledge.evaluate(model):
+                print(model, query)
                 return query.evaluate(model)
             return True
         else:

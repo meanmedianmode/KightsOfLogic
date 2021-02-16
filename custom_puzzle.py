@@ -13,7 +13,7 @@ CKnave = Symbol("C is a Knave")
 # A says "I am both a knight and a knave."
 
 
-Player_One = Symbol("first player")
+Player_One = symbol("first player")
 Knight = Symbol("Knight")
 Knave = Symbol("Knave")
 
@@ -24,10 +24,10 @@ knowledge0 = And(
 
 # KB 1) Cannot be both
 # KB 2) Each character is either a knight or a knave
-# {'A is a Knight': False, 'A is a Knave': False} 1:F
-# {'A is a Knight': True, 'A is a Knave': True} 1:F
-# {'A is a Knight': False, 'A is a Knave': True}
-# {'A is a Knight': True, 'A is a Knave': False}
+{'A is a Knight': False, 'A is a Knave': False} 1:F
+{'A is a Knight': True, 'A is a Knave': True} 1:F
+{'A is a Knight': False, 'A is a Knave': True}
+{'A is a Knight': True, 'A is a Knave': False}
 
 
 
