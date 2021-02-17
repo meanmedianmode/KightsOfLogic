@@ -1,9 +1,10 @@
 from logic import *
 
 # Puzzle 2
-# A says "We are the same kind." => Knave
-# B says "We are of different kinds." => Knight
-
+# A says "We are the same kind." Lie => Knave
+# B says "We are of different kinds." Truth => Knight
+# A is a knave
+# B is a knight
 
 AKnight = Symbol("A is a Knight")
 AKnave = Symbol("A is a Knave")
@@ -18,11 +19,34 @@ InitialKnowledge = And(
     Not(And(BKnight, BKnave)),
 )
 
-InitialStatment1 = Or(And(AKnight, BKnight), And(AKnave, BKnave))
-InitialStatment2 = Or(And(AKnight, BKnave), And(BKnave, AKnight))
+InitalStatement_SameKind = And(
+  # If Aknight <=> Bknight
+  Biconditional(AKnight, BKnight),
+  # If Aknight <=> Not(Aknave)
+  Biconditional(AKnight, Not(AKnave)),
+  # If Aknight <=> Not(BKnave)
+  Biconditional(AKnight, Not(BKnave))
+)
+
+InitalStatement_DifferentKind = And(
+  # If Aknight <=> Bknave
+  Biconditional(AKnight, BKnave),
+  # If BKnight <=> Aknave
+  Biconditional(BKnight, AKnave),
+  # If Aknight <=> Not(BKnight)
+  Biconditional(AKnight, Not(BKnight)),
+  # If AKnave <=> Not(Bknave)
+  Biconditional(AKnave, Not(BKnave)),
+)
 
 knowledge = And(
-
+  InitialKnowledge,
+  Biconditional(AKnave, Not(InitalStatement_SameKind)),
+  Biconditional(AKnave, Not(InitalStatement_DifferentKind)),
+  
+  # Inverse logic:
+  # Biconditional(BKnight, InitalStatement_SameKind),
+  # Biconditional(BKnight, InitalStatement_DifferentKind),
 )
 
 def main():
