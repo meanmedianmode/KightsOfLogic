@@ -160,7 +160,7 @@ class Or(Sentence):
     def formula(self):
         if len(self.disjuncts) == 1:
             return self.disjuncts[0].formula()
-        return " ∨  ".join([Sentence.parenthesize(disjunct.formula())
+        return " ∨ ".join([Sentence.parenthesize(disjunct.formula())
                             for disjunct in self.disjuncts])
 
     def symbols(self):
@@ -171,7 +171,9 @@ class Implication(Sentence):
     def __init__(self, antecedent, consequent):
         Sentence.validate(antecedent)
         Sentence.validate(consequent)
+        # antecedent: a thing or event that existed before or logically precedes another.
         self.antecedent = antecedent
+        # consequent: following as a result or effect.
         self.consequent = consequent
 
     def __eq__(self, other):
@@ -223,8 +225,8 @@ class Biconditional(Sentence):
                     and not self.right.evaluate(model)))
 
     def formula(self):
-        left = Sentence.parenthesize(str(self.left))
-        right = Sentence.parenthesize(str(self.right))
+        left = Sentence.parenthesize(str(self.left.formula()))
+        right = Sentence.parenthesize(str(self.right.formula()))
         return f"{left} <=> {right}"
 
     def symbols(self):
@@ -235,14 +237,15 @@ def model_check(knowledge, query):
     """Checks if knowledge base entails query."""
 
     def check_all(knowledge, query, symbols, model):
-        # print("0 model", model, query)
+       
         """Checks if knowledge base entails query, given a particular model."""
 
         # If model has an assignment for each symbol
         if not symbols:
+
             # If knowledge base is true in model, then query must also be true
             if knowledge.evaluate(model):
-                print(model, query)
+                # print(model, query, query.evaluate(model))
                 return query.evaluate(model)
             return True
         else:
