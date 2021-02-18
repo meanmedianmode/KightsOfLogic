@@ -17,16 +17,11 @@ InitialKnowledge = And(
 # What we're told by the character
 InitialStatment = And(AKnight, AKnave)
 
-
-# If the character is a knave, 
-# we know there statement must be False
-KnaveLie = Biconditional(AKnave, Not(InitialStatment))
-
 knowledge = And(
     InitialKnowledge,
-    KnaveLie,
+    # If A is a Knight than the initial statement must be true
+    Biconditional(AKnight, InitialStatment)
 )
-
 
 def main():
     symbols = [AKnight, AKnave]

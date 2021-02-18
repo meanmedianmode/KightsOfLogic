@@ -237,6 +237,7 @@ def model_check(knowledge, query):
     """Checks if knowledge base entails query."""
 
     def check_all(knowledge, query, symbols, model):
+        # print(model)
        
         """Checks if knowledge base entails query, given a particular model."""
 

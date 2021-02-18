@@ -10,6 +10,7 @@ AKnave = Symbol("A is a Knave")
 BKnight = Symbol("B is a Knight")
 BKnave = Symbol("B is a Knave")
 
+# KB initial rules
 InitialKnowledge = And(
     Or(AKnight, AKnave),
     Or(BKnight, BKnave),
@@ -17,12 +18,13 @@ InitialKnowledge = And(
     Not(And(BKnight, BKnave)),
 )
 
+# Statement given to us
 InitialStatment = And(AKnave, BKnave)
-KnaveLie = Biconditional(AKnave, Not(InitialStatment))
 
 knowledge = And(
     InitialKnowledge,
-    KnaveLie
+    # If A is a Knight his initial statment will be true
+    Biconditional(AKnight, InitialStatment)
 )
 
 def main():

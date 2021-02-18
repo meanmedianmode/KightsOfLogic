@@ -12,6 +12,7 @@ AKnave = Symbol("A is a Knave")
 BKnight = Symbol("B is a Knight")
 BKnave = Symbol("B is a Knave")
 
+# KB initial rules
 InitialKnowledge = And(
     Or(AKnight, AKnave),
     Or(BKnight, BKnave),
@@ -19,6 +20,7 @@ InitialKnowledge = And(
     Not(And(BKnight, BKnave)),
 )
 
+# Initial Statment given by A
 InitalStatement_SameKind = And(
   # If Aknight <=> Bknight
   Biconditional(AKnight, BKnight),
@@ -28,6 +30,7 @@ InitalStatement_SameKind = And(
   Biconditional(AKnight, Not(BKnave))
 )
 
+# Initial Statment given by B
 InitalStatement_DifferentKind = And(
   # If Aknight <=> Bknave
   Biconditional(AKnight, BKnave),
@@ -41,12 +44,10 @@ InitalStatement_DifferentKind = And(
 
 knowledge = And(
   InitialKnowledge,
-  Biconditional(AKnave, Not(InitalStatement_SameKind)),
-  Biconditional(AKnave, Not(InitalStatement_DifferentKind)),
-  
-  # Inverse logic:
-  # Biconditional(BKnight, InitalStatement_SameKind),
-  # Biconditional(BKnight, InitalStatement_DifferentKind),
+  # If A is a knight their initial statment must be true
+  Biconditional(AKnight, InitalStatement_SameKind),
+  # If B is a knight their initial statment must be true
+  Biconditional(BKnight, InitalStatement_DifferentKind),
 )
 
 def main():
